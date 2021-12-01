@@ -4,21 +4,16 @@ import { ListUsersContextProps, ListUsersProviderProps, UsersDataProps } from '.
 
 export const ListUsersContext = createContext({} as ListUsersContextProps);
 
-export function ListUsersProvider({children}: ListUsersProviderProps){
+export function ListUsersProvider({ children }: ListUsersProviderProps) {
   const [usersData, setUsersData] = useState<UsersDataProps[]>([])
-  const [openModal, setOpenModal] = useState<boolean>(false)
 
-  function getUsersData(params: UsersDataProps[]){
+  function getUsersData(params: UsersDataProps[]) {
     setUsersData(params);
   };
 
-  
-  function handleModal(param: boolean){
-    setOpenModal(param);
-  };
 
-  return(
-    <ListUsersContext.Provider value={{usersData, getUsersData, openModal, handleModal}}>
+  return (
+    <ListUsersContext.Provider value={{ usersData, getUsersData }}>
       {children}
     </ListUsersContext.Provider>
   )
