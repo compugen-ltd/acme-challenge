@@ -133,7 +133,7 @@ const UserList = () => {
                     </GenderButtonContainer>
                     <NationalityContainer >
                         <label>Nationality</label>
-                        <SelectStyled onChange={handleSelectChange}>
+                        <SelectStyled value={nationality} onChange={handleSelectChange}>
                             <option value="" hidden></option>
                             {nationalities.map(nat =>
                                 <option value={nat} key={nat}>{nat}</option>)}
