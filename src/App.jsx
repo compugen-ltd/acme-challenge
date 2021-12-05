@@ -1,13 +1,14 @@
 import Routes from './routes/routes'
 import { ListUsersProvider } from './context/listUsersContext'
-
 import GlobalStyles from './styles/global'
+import Header from '../src/components/Header';
 
-  export function App() { 
+export function App() {
   return (
     <ListUsersProvider>
-      <Routes/>
-      <GlobalStyles/>
+      <Header />
+      <Routes />
+      <GlobalStyles />
     </ListUsersProvider>
   )
 }
