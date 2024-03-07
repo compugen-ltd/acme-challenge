@@ -1,24 +1,30 @@
 import { createContext, useState, useContext } from 'react';
 
-import { ListUsersContextProps, ListUsersProviderProps, UsersDataProps } from '../services/types';
+import { ListUsersContextProps, ListUsersProviderProps, UsersDataProps, AppStatus, SelectedUser } from '../services/types';
 
 export const ListUsersContext = createContext({} as ListUsersContextProps);
 
-export function ListUsersProvider({children}: ListUsersProviderProps){
-  const [usersData, setUsersData] = useState<UsersDataProps[]>([])
-  const [openModal, setOpenModal] = useState<boolean>(false)
+export function ListUsersProvider({ children }: ListUsersProviderProps) {
+  // TODO: modify openModal into selectedUser (by id)
+  const [usersData, setUsersData] = useState<UsersDataProps[]>([]);
+  const [selectedUser, setSelectedUser] = useState<SelectedUser>(null);
+  const [page, setPage] = useState<number>(0);
+  const [status, setStatus] = useState<AppStatus>("loading");
 
-  function getUsersData(params: UsersDataProps[]){
+  function setUsers(params: UsersDataProps[]) {
     setUsersData(params);
   };
 
-  
-  function handleModal(param: boolean){
-    setOpenModal(param);
-  };
+  function nextPage() {
+    setPage((cur) => cur++)
+  }
 
-  return(
-    <ListUsersContext.Provider value={{usersData, getUsersData, openModal, handleModal}}>
+  function prevPage() {
+    setPage((cur) => cur > 1 ? cur-- : cur)
+  }
+
+  return (
+    <ListUsersContext.Provider value={{ usersData, setUsers, selectedUser, setSelectedUser, page, nextPage, prevPage, setPage, status, setStatus }}>
       {children}
     </ListUsersContext.Provider>
   )
