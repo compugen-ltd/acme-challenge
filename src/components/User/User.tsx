@@ -4,12 +4,10 @@ import TableCell from '@mui/material/TableCell';
 
 import { UsersDataProps } from '../../services/types';
 import formattedDate from '../../services/formattedDate';
-import { useListUsersContext } from '../../context/listUsersContext';
 import { AccountCircle } from '@material-ui/icons';
 import { NavLink } from 'react-router-dom';
 
 export default function User({ user }: { user: UsersDataProps }) {
-    // const { setSelectedUser } = useListUsersContext()
 
     return (
         <TableRow

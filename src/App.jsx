@@ -7,12 +7,15 @@ import Header from "./components/Header";
 import api from "./services/api";
 import { useListUsersContext } from "./context/listUsersContext";
 import GlobalStyles from "./styles/global";
+import Search from "./components/Search/Search";
+import FilterBar from "./components/FilterBar/FilterBar";
+import GenderFilter from "./components/GenderFilter/GenderFilter";
 
 export const DEFAULT_USERS_PER_PAGE = 25;
 const seed = uuidv4();
 
 export function App() {
-  const { setUsers, page, setStatus, selectedUser } = useListUsersContext();
+  const { setUsers, page, setStatus } = useListUsersContext();
 
   useEffect(() => {
     // TODO: add abortcontroller
@@ -32,6 +35,10 @@ export function App() {
   return (
     <>
       <Header />
+      <FilterBar>
+        <Search />
+        <GenderFilter />
+      </FilterBar>
       <Routes />
       <GlobalStyles />
     </>

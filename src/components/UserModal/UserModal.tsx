@@ -21,6 +21,7 @@ export default function UserModal() {
     };
 
     return (
+        // TODO: make responsive
         <Modal
             open
             onClose={handleClose}
