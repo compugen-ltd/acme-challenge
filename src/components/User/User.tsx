@@ -12,7 +12,7 @@ export default function User({ user }: { user: UsersDataProps }) {
     const { setUsers } = useListUsersContext();
 
     function handleDelete() {
-        // setUsers(users => users.filter(u => u.login.uuid !== user.login.uuid));
+        setUsers(prevUsers => prevUsers.filter(u => u.login.uuid !== user.login.uuid));
     }
 
     return (
@@ -26,7 +26,9 @@ export default function User({ user }: { user: UsersDataProps }) {
             <TableCell align="center">{user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</TableCell>
             <TableCell align="center">{formattedDate(user.dob.date)}</TableCell>
             <TableCell align="center">
-                <Delete onClick={handleDelete} style={{ marginRight: '0.5rem' }} />
+                <button onClick={handleDelete} style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>
+                    <Delete />
+                </button>
                 <NavLink to={user.login.uuid}>
                     <AccountCircle />
                 </NavLink>
