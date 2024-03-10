@@ -30,7 +30,7 @@ export type UsersDataProps = {
 
 export type ListUsersContextProps = {
   usersData: UsersDataProps[];
-  setUsers: (params: UsersDataProps[]) => void;
+  setUsers: (users: UsersDataProps[]) => void;
   selectedUser: SelectedUser;
   setSelectedUser: (param: string) => void;
   page: number;
@@ -39,8 +39,10 @@ export type ListUsersContextProps = {
   setStatus: (param: AppStatus) => void;
   searchQuery: string;
   setSearchQuery: (param: string) => void;
-  sexFilter: Sex[];
-  setSexFilter: (param: Sex[]) => void;
+  genderFilter: Gender | null;
+  setGenderFilter: (param: Gender | null) => void;
+  nationalityFilter: Nationality[];
+  setNationalityFilter: (param: Nationality[]) => void;
 };
 
 export type ListUsersProviderProps = {
@@ -51,4 +53,27 @@ export type AppStatus = "loading" | "ready" | "error";
 
 export type SelectedUser = string | null;
 
-export type Sex = "male" | "female";
+export type Gender = "male" | "female";
+
+export type Nationality =
+  | "AU"
+  | "BR"
+  | "CA"
+  | "CH"
+  | "DE"
+  | "DK"
+  | "ES"
+  | "FI"
+  | "FR"
+  | "GB"
+  | "IE"
+  | "IN"
+  | "IR"
+  | "MX"
+  | "NL"
+  | "NO"
+  | "NZ"
+  | "RS"
+  | "TR"
+  | "UA"
+  | "US";

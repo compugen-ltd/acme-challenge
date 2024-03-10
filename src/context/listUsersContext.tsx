@@ -1,6 +1,6 @@
 import { createContext, useState, useContext } from 'react';
 
-import { ListUsersContextProps, ListUsersProviderProps, UsersDataProps, AppStatus, SelectedUser, Sex } from '../services/types';
+import { ListUsersContextProps, ListUsersProviderProps, UsersDataProps, AppStatus, SelectedUser, Gender, Nationality } from '../services/types';
 
 export const ListUsersContext = createContext({} as ListUsersContextProps);
 
@@ -11,14 +11,15 @@ export function ListUsersProvider({ children }: ListUsersProviderProps) {
   const [page, setPage] = useState<number>(0);
   const [status, setStatus] = useState<AppStatus>("loading");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [sexFilter, setSexFilter] = useState<Sex[]>([]);
+  const [genderFilter, setGenderFilter] = useState<Gender | null>(null);
+  const [nationalityFilter, setNationalityFilter] = useState<Nationality[]>([]);
 
   function setUsers(params: UsersDataProps[]) {
     setUsersData(params);
   };
 
   return (
-    <ListUsersContext.Provider value={{ usersData, setUsers, selectedUser, setSelectedUser, page, setPage, status, setStatus, searchQuery, setSearchQuery, sexFilter, setSexFilter }}>
+    <ListUsersContext.Provider value={{ usersData, setUsers, selectedUser, setSelectedUser, page, setPage, status, setStatus, searchQuery, setSearchQuery, genderFilter, setGenderFilter, nationalityFilter, setNationalityFilter }}>
       {children}
     </ListUsersContext.Provider>
   )

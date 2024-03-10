@@ -1,22 +1,25 @@
 import { FemaleRounded, MaleRounded } from '@mui/icons-material'
 import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { useListUsersContext } from '../../context/listUsersContext'
-import { Sex } from '../../services/types';
+import { Gender } from '../../services/types';
 
 export default function GenderFilter() {
-    const { sexFilter, setSexFilter } = useListUsersContext();
+    const { genderFilter, setGenderFilter, setPage } = useListUsersContext();
 
     const handleFilter = (
         event: React.MouseEvent<HTMLElement>,
-        newFilter: Sex[],
+        newFilter: Gender,
     ) => {
-        setSexFilter(newFilter)
+        setPage(0);
+        setGenderFilter(newFilter);
     }
 
     return (
         <ToggleButtonGroup
-            aria-label='sex filtering'
-            value={sexFilter}
+            aria-label='gender filtering'
+            color="primary"
+            exclusive
+            value={genderFilter}
             onChange={handleFilter}
         >
             <ToggleButton value="male" aria-label='male'>

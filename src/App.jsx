@@ -1,28 +1,38 @@
 import { useEffect } from "react";
 import Routes from "./routes/routes";
 
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+// const seed = uuidv4();
 
 import Header from "./components/Header";
-import api from "./services/api";
-import { useListUsersContext } from "./context/listUsersContext";
-import GlobalStyles from "./styles/global";
 import Search from "./components/Search/Search";
 import FilterBar from "./components/FilterBar/FilterBar";
 import GenderFilter from "./components/GenderFilter/GenderFilter";
+import NationalityFilter from "./components/NationalityFilter/NationalityFilter";
+import { useListUsersContext } from "./context/listUsersContext";
+import api from "./services/api";
+import GlobalStyles from "./styles/global";
 
 export const DEFAULT_USERS_PER_PAGE = 25;
-const seed = uuidv4();
 
 export function App() {
-  const { setUsers, page, setStatus } = useListUsersContext();
+  const { setUsers, page, setStatus, genderFilter, nationalityFilter } =
+    useListUsersContext();
+
+  // Since the api doesn't support filtering with pagination, I remove the seed when there's filtering applied.
+  const seed = genderFilter | nationalityFilter.length ? "" : "compugen";
 
   useEffect(() => {
     // TODO: add abortcontroller
+    setStatus("loading");
     api
-      .get(`?results=${DEFAULT_USERS_PER_PAGE}&page=${page + 1}&seed=${seed}`)
+      .get(
+        `?results=${DEFAULT_USERS_PER_PAGE}&page=${
+          page + 1
+        }&seed=${seed}&gender=${genderFilter}&nationality=${nationalityFilter.toString()}`
+      )
       .then((response) => {
-        console.log(response.data.results);
+        // console.log(response.data.results);
         setUsers(response.data.results);
         setStatus("ready");
       })
@@ -30,7 +40,7 @@ export function App() {
         console.error(error);
         setStatus("error");
       });
-  }, [page]);
+  }, [page, genderFilter, nationalityFilter]);
 
   return (
     <>
@@ -38,6 +48,7 @@ export function App() {
       <FilterBar>
         <Search />
         <GenderFilter />
+        <NationalityFilter />
       </FilterBar>
       <Routes />
       <GlobalStyles />
