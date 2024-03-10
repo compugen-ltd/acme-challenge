@@ -15,7 +15,7 @@ import { DEFAULT_USERS_PER_PAGE } from '../../App';
 export default function UserList() {
     const { usersData, setPage, page, status, searchQuery } = useListUsersContext();
 
-    // Filter users based on searchQuery
+    // Filter users names and email based on searchQuery
     const filteredUsers = usersData.filter((user) => {
         const searchText = searchQuery.toLowerCase();
         return (

@@ -30,7 +30,9 @@ export type UsersDataProps = {
 
 export type ListUsersContextProps = {
   usersData: UsersDataProps[];
-  setUsers: (users: UsersDataProps[]) => void;
+  setUsers: (
+    updateFunction: (prevUsers: UsersDataProps[]) => UsersDataProps[]
+  ) => void;
   selectedUser: SelectedUser;
   setSelectedUser: (param: string) => void;
   page: number;

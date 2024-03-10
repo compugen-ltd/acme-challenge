@@ -14,8 +14,8 @@ export function ListUsersProvider({ children }: ListUsersProviderProps) {
   const [genderFilter, setGenderFilter] = useState<Gender | null>(null);
   const [nationalityFilter, setNationalityFilter] = useState<Nationality[]>([]);
 
-  function setUsers(params: UsersDataProps[]) {
-    setUsersData(params);
+  function setUsers(updateFunction: (prevUsers: UsersDataProps[]) => UsersDataProps[]) {
+    setUsersData(updateFunction);
   };
 
   return (
