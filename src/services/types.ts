@@ -33,10 +33,8 @@ export type ListUsersContextProps = {
   setUsers: (
     updateFunction: (prevUsers: UsersDataProps[]) => UsersDataProps[]
   ) => void;
-  selectedUser: SelectedUser;
-  setSelectedUser: (param: string) => void;
   page: number;
-  setPage: (newPage: number) => void;
+  setPage: (updateFunction: (prevPage: number) => number) => void;
   status: AppStatus;
   setStatus: (param: AppStatus) => void;
   searchQuery: string;
@@ -52,8 +50,6 @@ export type ListUsersProviderProps = {
 };
 
 export type AppStatus = "loading" | "ready" | "error";
-
-export type SelectedUser = string | null;
 
 export type Gender = "male" | "female";
 
