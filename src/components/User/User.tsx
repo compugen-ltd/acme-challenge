@@ -6,6 +6,7 @@ import { useListUsersContext } from '../../context/listUsersContext';
 import formattedDate from '../../services/formattedDate';
 import { AccountCircle, Delete } from '@material-ui/icons';
 import { UsersDataProps } from '../../services/types';
+import { Avatar } from '@mui/material';
 
 export default function User({ user }: { user: UsersDataProps }) {
     const { setUsers } = useListUsersContext();
@@ -15,14 +16,17 @@ export default function User({ user }: { user: UsersDataProps }) {
     }
 
     return (
-        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="row">
-                {`${user.name.first} ${user.name.last}`}
+        <TableRow>
+            <TableCell align='left'>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar src={user.picture.large} alt='user-avatar' sx={{ marginRight: '0.5rem' }} />
+                    <div>{`${user.name.first} ${user.name.last}`}</div>
+                </div>
             </TableCell>
-            <TableCell align="right">{user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</TableCell>
-            <TableCell align="right">{formattedDate(user.dob.date)}</TableCell>
-            <TableCell align="right" sx={{ display: "flex", gap: "2em" }}>
-                <Delete onClick={handleDelete} />
+            <TableCell align="center">{user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</TableCell>
+            <TableCell align="center">{formattedDate(user.dob.date)}</TableCell>
+            <TableCell align="center">
+                <Delete onClick={handleDelete} style={{ marginRight: '0.5rem' }} />
                 <NavLink to={user.login.uuid}>
                     <AccountCircle />
                 </NavLink>

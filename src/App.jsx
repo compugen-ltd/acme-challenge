@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import Routes from "./routes/routes";
 
-// import { v4 as uuidv4 } from "uuid";
-// const seed = uuidv4();
-
 import Header from "./components/Header";
 import Search from "./components/Search/Search";
 import FilterBar from "./components/FilterBar/FilterBar";
@@ -20,7 +17,7 @@ export function App() {
     useListUsersContext();
 
   // Since the api doesn't support filtering with pagination, I remove the seed when there's filtering applied.
-  const seed = genderFilter | nationalityFilter.length ? "" : "compugen";
+  const seed = genderFilter || nationalityFilter.length ? "" : "compugen";
 
   useEffect(() => {
     // TODO: add abortcontroller
@@ -32,7 +29,6 @@ export function App() {
         }&seed=${seed}&gender=${genderFilter}&nationality=${nationalityFilter.toString()}`
       )
       .then((response) => {
-        // console.log(response.data.results);
         setUsers(response.data.results);
         setStatus("ready");
       })

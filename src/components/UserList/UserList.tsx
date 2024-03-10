@@ -25,7 +25,7 @@ export default function UserList() {
         )
     });
 
-    function handleChangePage(event: unknown, newPage: number) {
+    function handleChangePage(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) {
         setPage(newPage);
     }
 
@@ -34,13 +34,13 @@ export default function UserList() {
             {!filteredUsers.length && status === "ready" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>No users found</Typography>}
             {status === "ready" && (
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                    <Table sx={{ minWidth: 250 }} aria-label="scientists table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
-                                <TableCell align="right">Gender</TableCell>
-                                <TableCell align="right">Date of birth</TableCell>
-                                <TableCell align="right">Actions</TableCell>
+                                <TableCell align="center">Gender</TableCell>
+                                <TableCell align="center">Date of birth</TableCell>
+                                <TableCell align="center">Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -52,7 +52,7 @@ export default function UserList() {
                 </TableContainer>
             )}
             {status === "loading" && <CircularProgress sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }} />}
-            {status !== "ready" && status !== "loading" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>An unexpected error occurred.</Typography>}
+            {status !== "ready" && status !== "loading" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>An unexpected error occurred, please try again later.</Typography>}
             {!searchQuery && (
                 <TablePagination
                     component="div"
