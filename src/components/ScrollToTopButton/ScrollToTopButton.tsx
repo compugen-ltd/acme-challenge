@@ -8,7 +8,7 @@ export default function ScrollToTopButton() {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-            setIsVisible(scrollPosition > 300); // Adjust this threshold as needed
+            setIsVisible(scrollPosition > 300);
         };
 
         window.addEventListener('scroll', handleScroll);
