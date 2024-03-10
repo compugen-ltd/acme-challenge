@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ListUsersProvider } from "./context/listUsersContext";
 import { CssBaseline } from '@mui/material';
+import { ListUsersProvider } from "./context/listUsersContext";
 import App from './App';
 
 ReactDOM.render(

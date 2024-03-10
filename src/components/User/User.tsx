@@ -1,12 +1,12 @@
-import React from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import { AccountCircle, Delete } from '@material-ui/icons';
+import { Avatar } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+
 import { useListUsersContext } from '../../context/listUsersContext';
 import formattedDate from '../../services/formattedDate';
-import { AccountCircle, Delete } from '@material-ui/icons';
 import { UsersDataProps } from '../../services/types';
-import { Avatar } from '@mui/material';
 
 export default function User({ user }: { user: UsersDataProps }) {
     const { setUsers } = useListUsersContext();

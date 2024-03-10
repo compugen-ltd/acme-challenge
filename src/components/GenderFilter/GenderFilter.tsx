@@ -1,5 +1,6 @@
 import { FemaleRounded, MaleRounded } from '@mui/icons-material'
 import { ToggleButton, ToggleButtonGroup } from '@mui/material'
+
 import { useListUsersContext } from '../../context/listUsersContext'
 import { Gender } from '../../services/types';
 
@@ -10,7 +11,7 @@ export default function GenderFilter() {
         event: React.MouseEvent<HTMLElement>,
         newFilter: Gender,
     ) => {
-        setPage(0);
+        setPage(p => 0);
         setGenderFilter(newFilter);
     }
 

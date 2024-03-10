@@ -21,7 +21,7 @@ export default function NationalityFilter() {
     const { nationalityFilter, setNationalityFilter, setPage } = useListUsersContext();
 
     const handleChange = (event: SelectChangeEvent<typeof nationalityFilter>) => {
-        setPage(0);
+        setPage(p => 0);
         setNationalityFilter(event.target.value as Nationality[]);
     };
 

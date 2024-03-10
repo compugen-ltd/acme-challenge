@@ -1,4 +1,3 @@
-import React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,14 +5,14 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { CircularProgress, TablePagination, Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 import { useListUsersContext } from '../../context/listUsersContext';
 import User from '../User/User';
-import { DEFAULT_USERS_PER_PAGE } from '../../App';
 
 export default function UserList() {
-    const { usersData, setPage, page, status, searchQuery } = useListUsersContext();
+    const { usersData, setPage, status, searchQuery } = useListUsersContext();
 
     // Filter users names and email based on searchQuery
     const filteredUsers = usersData.filter((user) => {
@@ -25,14 +24,14 @@ export default function UserList() {
         )
     });
 
-    function handleChangePage(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) {
-        setPage(newPage);
+    function loadMore() {
+        setPage((p: number) => p + 1);
     }
 
     return (
         <Paper>
             {!filteredUsers.length && status === "ready" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>No users found</Typography>}
-            {status === "ready" && (
+            <>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 250 }} aria-label="scientists table">
                         <TableHead>
@@ -50,20 +49,29 @@ export default function UserList() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            )}
+                <LoadingButton
+                    onClick={loadMore}
+                    loading={status === "loading"}
+                    sx={{
+                        display: 'block',
+                        margin: 'auto',
+                        my: 2,
+                        py: 1,
+                        px: 3,
+                        backgroundColor: 'primary.main',
+                        color: 'white',
+                        '&:hover': {
+                            backgroundColor: 'primary.dark',
+                        },
+                        textTransform: 'none',
+                    }}
+                >
+                    Load more
+                </LoadingButton>
+            </>
+
             {status === "loading" && <CircularProgress sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }} />}
             {status !== "ready" && status !== "loading" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>An unexpected error occurred, please try again later.</Typography>}
-            {!searchQuery && (
-                <TablePagination
-                    component="div"
-                    rowsPerPage={DEFAULT_USERS_PER_PAGE}
-                    count={-1}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    rowsPerPageOptions={[]}
-                    showFirstButton
-                />
-            )}
         </Paper>
     );
 }
