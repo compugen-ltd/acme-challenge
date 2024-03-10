@@ -5,7 +5,7 @@ import { useListUsersContext } from '../../context/listUsersContext'
 import { Gender } from '../../services/types';
 
 export default function GenderFilter() {
-    const { genderFilter, setGenderFilter, setPage } = useListUsersContext();
+    const { genderFilter, setGenderFilter, setPage, status } = useListUsersContext();
 
     const handleFilter = (
         event: React.MouseEvent<HTMLElement>,
@@ -22,6 +22,7 @@ export default function GenderFilter() {
             exclusive
             value={genderFilter}
             onChange={handleFilter}
+            sx={{ height: '3.5em' }}
         >
             <ToggleButton value="male" aria-label='male'>
                 <MaleRounded />

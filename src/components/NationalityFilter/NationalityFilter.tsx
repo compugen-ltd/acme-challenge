@@ -26,7 +26,7 @@ export default function NationalityFilter() {
     };
 
     return (
-        <FormControl sx={{ m: 1, minWidth: 200 }}>
+        <FormControl sx={{ m: 1, minWidth: 125 }}>
             <InputLabel id="nationality-label" >
                 Nationality
             </InputLabel>

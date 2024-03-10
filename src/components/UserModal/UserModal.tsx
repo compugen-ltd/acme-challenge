@@ -39,6 +39,9 @@ export default function UserModal() {
                 p: 4,
                 borderRadius: 2,
                 width: 600,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5em',
             }}>
                 <Avatar
                     alt={user.name.first + " " + user.name.last}
@@ -50,19 +53,19 @@ export default function UserModal() {
                 </Typography>
                 <Divider />
                 <Typography variant="body1" id="modal-description">
-                    <strong>Full Name:</strong> {`${user.name.first} ${user.name.last}`}
+                    <b>Full Name:</b> {`${user.name.first} ${user.name.last}`}
                 </Typography>
                 <Typography variant="body1">
-                    <strong>Email:</strong> {user.email}
+                    <b>Email:</b> {user.email}
                 </Typography>
                 <Typography variant="body1">
-                    <strong>Gender:</strong> {user.gender}
+                    <b>Gender:</b> {user.gender}
                 </Typography>
                 <Typography variant="body1">
-                    <strong>Date of Birth:</strong> {formattedDate(user.dob.date)}
+                    <b>Date of Birth:</b> {formattedDate(user.dob.date)}
                 </Typography>
                 <Typography variant="body1">
-                    <strong>Nationality:</strong> {user.nat}
+                    <b>Nationality:</b> {user.nat}
                 </Typography>
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Button variant="contained" onClick={handleClose}>

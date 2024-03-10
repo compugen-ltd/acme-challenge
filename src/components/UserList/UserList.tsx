@@ -36,10 +36,10 @@ export default function UserList() {
                     <Table sx={{ minWidth: 250 }} aria-label="scientists table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell align="center">Gender</TableCell>
-                                <TableCell align="center">Date of birth</TableCell>
-                                <TableCell align="center">Actions</TableCell>
+                                <TableCell><b>Name</b></TableCell>
+                                <TableCell align="center"><b>Gender</b></TableCell>
+                                <TableCell align="center"><b>Date of birth</b></TableCell>
+                                <TableCell align="center"><b>Actions</b></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -48,30 +48,28 @@ export default function UserList() {
                             ))}
                         </TableBody>
                     </Table>
+                    <LoadingButton
+                        onClick={loadMore}
+                        loading={status === "loading"}
+                        sx={{
+                            display: 'block',
+                            margin: 'auto',
+                            my: 2,
+                            py: 1,
+                            px: 3,
+                            backgroundColor: 'primary.main',
+                            color: 'white',
+                            '&:hover': {
+                                backgroundColor: 'primary.dark',
+                            },
+                            textTransform: 'none',
+                        }}
+                    >
+                        Load more
+                    </LoadingButton>
                 </TableContainer>
-                <LoadingButton
-                    onClick={loadMore}
-                    loading={status === "loading"}
-                    sx={{
-                        display: 'block',
-                        margin: 'auto',
-                        my: 2,
-                        py: 1,
-                        px: 3,
-                        backgroundColor: 'primary.main',
-                        color: 'white',
-                        '&:hover': {
-                            backgroundColor: 'primary.dark',
-                        },
-                        textTransform: 'none',
-                    }}
-                >
-                    Load more
-                </LoadingButton>
             </>
-
-            {status === "loading" && <CircularProgress sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }} />}
-            {status !== "ready" && status !== "loading" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>An unexpected error occurred, please try again later.</Typography>}
+            {status === 'error' && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>An unexpected error occurred, please try again later.</Typography>}
         </Paper>
     );
 }
