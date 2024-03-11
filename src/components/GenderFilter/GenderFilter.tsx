@@ -5,7 +5,7 @@ import { useListUsersContext } from '../../context/listUsersContext'
 import { Gender } from '../../services/types';
 
 export default function GenderFilter() {
-    const { genderFilter, setGenderFilter, setPage, status } = useListUsersContext();
+    const { genderFilter, setGenderFilter, setPage } = useListUsersContext();
 
     const handleFilter = (
         event: React.MouseEvent<HTMLElement>,

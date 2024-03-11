@@ -28,12 +28,12 @@ export default function User({ user }: { user: UsersDataProps }) {
             <TableCell align="center">{user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</TableCell>
             <TableCell align="center">{formattedDate(user.dob.date)}</TableCell>
             <TableCell align="center">
-                <button onClick={handleDelete} style={{ background: 'none', border: 'none', cursor: 'pointer', marginRight: '1rem' }}>
-                    <DeleteOutlineOutlined />
-                </button>
                 <NavLink to={user.login.uuid}>
                     <AccountCircle />
                 </NavLink>
+                <button onClick={handleDelete} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '1rem' }}>
+                    <DeleteOutlineOutlined />
+                </button>
             </TableCell>
         </TableRow>
 

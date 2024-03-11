@@ -14,14 +14,8 @@ import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton"
 export const DEFAULT_USERS_PER_PAGE = 25;
 
 export function App() {
-  const {
-    setUsers,
-    page,
-    setPage,
-    setStatus,
-    genderFilter,
-    nationalityFilter,
-  } = useListUsersContext();
+  const { setUsers, page, setStatus, genderFilter, nationalityFilter } =
+    useListUsersContext();
 
   // Since the api doesn't support filtering with pagination, I remove the seed when there's filtering applied.
   const seed = genderFilter || nationalityFilter.length ? "" : "compugen";
