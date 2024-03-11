@@ -32,7 +32,7 @@ export default function UserList() {
         <Paper>
             {!filteredUsers.length && status === "ready" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>No users found</Typography>}
             <>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
                     <Table sx={{ minWidth: 250 }} aria-label="scientists table">
                         <TableHead>
                             <TableRow>
@@ -62,7 +62,6 @@ export default function UserList() {
                             '&:hover': {
                                 backgroundColor: 'primary.dark',
                             },
-                            textTransform: 'none',
                         }}
                     >
                         Load more

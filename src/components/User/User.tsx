@@ -1,7 +1,7 @@
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { AccountCircle, DeleteOutlineOutlined } from '@material-ui/icons';
-import { Avatar } from '@mui/material';
+import { Avatar, Grid } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 import { useListUsersContext } from '../../context/listUsersContext';
@@ -25,17 +25,25 @@ export default function User({ user }: { user: UsersDataProps }) {
                     </div>
                 </div>
             </TableCell>
+            {/* Capitalized for aesthetic purposes */}
             <TableCell align="center">{user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</TableCell>
             <TableCell align="center">{formattedDate(user.dob.date)}</TableCell>
             <TableCell align="center">
-                <NavLink to={user.login.uuid}>
-                    <AccountCircle />
-                </NavLink>
-                <button onClick={handleDelete} style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '1rem' }}>
-                    <DeleteOutlineOutlined />
-                </button>
-            </TableCell>
-        </TableRow>
+                <Grid container spacing={1} alignItems="center" justifyContent="center">
+                    <Grid item>
+                        <NavLink to={user.login.uuid}>
+                            <AccountCircle />
+                        </NavLink>
+                    </Grid>
+                    <Grid item>
+                        {/* Wrapped in a button to show a click curser */}
+                        <button onClick={handleDelete} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                            <DeleteOutlineOutlined />
+                        </button>
+                    </Grid>
+                </Grid>
+            </TableCell >
+        </TableRow >
 
     );
 }
