@@ -1,15 +1,76 @@
-import Routes from './routes/routes'
-import { ListUsersProvider } from './context/listUsersContext'
+import { useEffect } from "react";
 
-import GlobalStyles from './styles/global'
+import { useListUsersContext } from "./context/listUsersContext";
+import Routes from "./routes/routes";
+import api from "./services/api";
+import Header from "./components/Header";
+import Search from "./components/Search/Search";
+import FilterBar from "./components/FilterBar/FilterBar";
+import GenderFilter from "./components/GenderFilter/GenderFilter";
+import NationalityFilter from "./components/NationalityFilter/NationalityFilter";
+import GlobalStyles from "./styles/global";
+import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 
-  export function App() { 
+export const DEFAULT_USERS_PER_PAGE = 25;
+
+export function App() {
+  const { setUsers, page, setStatus, genderFilter, nationalityFilter } =
+    useListUsersContext();
+
+  // Since the api doesn't support filtering with pagination, I remove the seed when there's filtering applied,
+  // because else the api doesn't return filtered results.
+  const seed = genderFilter || nationalityFilter.length ? "" : "compugen";
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    const fetchData = async () => {
+      setStatus("loading");
+      try {
+        const response = await api.get(
+          `?results=${DEFAULT_USERS_PER_PAGE}&page=${
+            page + 1
+          }&seed=${seed}&gender=${genderFilter}&nationality=${nationalityFilter.toString()}`,
+          { signal }
+        );
+        if (page === 0) {
+          // If the paginated had been reset when a filter had been set, it overwrites the state.
+          setUsers(response.data.results);
+        } else {
+          setUsers((prev) => [...prev, ...response.data.results]);
+        }
+        setStatus("ready");
+      } catch (error) {
+        console.error(error);
+        if (error.message !== "canceled") {
+          // Don't set an error state if the abort controller canceled the fetch.
+          setStatus("error");
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      // Cleanup function to abort the request
+      abortController.abort();
+    };
+  }, [page, genderFilter, nationalityFilter]);
+
   return (
-    <ListUsersProvider>
-      <Routes/>
-      <GlobalStyles/>
-    </ListUsersProvider>
-  )
+    <>
+      <Header />
+      <FilterBar>
+        <Search />
+        <GenderFilter />
+        <NationalityFilter />
+      </FilterBar>
+      <Routes />
+      <GlobalStyles />
+      <ScrollToTopButton />
+    </>
+  );
 }
 
 export default App;

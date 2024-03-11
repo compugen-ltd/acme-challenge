@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -12,16 +11,16 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Stack direction="row" spacing={2}>
-    </Stack> 
+      </Stack>
       <AppBar position="static">
         <Toolbar>
           <BiotechIcon fontSize="large" />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Acme Corp</Typography>
-            <div>
-              <IconButton size="large" >
-                <AccountCircle />
-              </IconButton>              
-            </div>
+          <div>
+            <IconButton size="large" >
+              <AccountCircle />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

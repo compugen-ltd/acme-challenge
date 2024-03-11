@@ -1,0 +1,79 @@
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+
+import User from '../User/User';
+import { useListUsersContext } from '../../context/listUsersContext';
+import { neutralizeString } from '../../services/utils';
+
+export default function UserList() {
+    const { usersData, setPage, status, searchQuery } = useListUsersContext();
+
+    // Filter users' names based on searchQuery, handling spaces
+    const filteredUsers = usersData.filter((user) => {
+        const searchTextTerms = searchQuery.trim().toLowerCase().split(/\s+/); // Split searchText by spaces
+        return searchTextTerms.every((term) => {
+            return (
+                neutralizeString(user.name.first).includes(term) ||
+                neutralizeString(user.name.last).includes(term)
+            );
+        });
+    });
+
+
+    function loadMore() {
+        setPage((p: number) => p + 1);
+    }
+
+    return (
+        <Paper>
+            {/* If the fetch completed and no users are in the filtered array, display this. */}
+            {!filteredUsers.length && status === "ready" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>No users found</Typography>}
+            <>
+                <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
+                    <Table sx={{ minWidth: 250 }} aria-label="scientists table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell><b>Name</b></TableCell>
+                                <TableCell align="center"><b>Gender</b></TableCell>
+                                <TableCell align="center"><b>Date of birth</b></TableCell>
+                                <TableCell align="center"><b>Actions</b></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredUsers.map((user) => (
+                                <User user={user} key={user.login.uuid} />
+                            ))}
+                        </TableBody>
+                    </Table>
+                    {/* This components reacts to the loading state. */}
+                    <LoadingButton
+                        onClick={loadMore}
+                        loading={status === "loading"}
+                        sx={{
+                            display: 'block',
+                            margin: 'auto',
+                            my: 2,
+                            py: 1,
+                            px: 3,
+                            backgroundColor: 'primary.main',
+                            color: 'white',
+                            '&:hover': {
+                                backgroundColor: 'primary.dark',
+                            },
+                        }}
+                    >
+                        Load more
+                    </LoadingButton>
+                </TableContainer>
+            </>
+            {status === 'error' && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>An unexpected error occurred, please try again later.</Typography>}
+        </Paper>
+    );
+}
