@@ -11,6 +11,7 @@ export default function GenderFilter() {
         event: React.MouseEvent<HTMLElement>,
         newFilter: Gender,
     ) => {
+        // Resets pagination because api returns random unpaginated users
         setPage(p => 0);
         setGenderFilter(newFilter);
     }

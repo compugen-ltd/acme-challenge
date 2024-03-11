@@ -17,7 +17,8 @@ export function App() {
   const { setUsers, page, setStatus, genderFilter, nationalityFilter } =
     useListUsersContext();
 
-  // Since the api doesn't support filtering with pagination, I remove the seed when there's filtering applied.
+  // Since the api doesn't support filtering with pagination, I remove the seed when there's filtering applied,
+  // because else the api doesn't return filtered results.
   const seed = genderFilter || nationalityFilter.length ? "" : "compugen";
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export function App() {
           { signal }
         );
         if (page === 0) {
+          // If the paginated had been reset when a filter had been set, it overwrites the state.
           setUsers(response.data.results);
         } else {
           setUsers((prev) => [...prev, ...response.data.results]);
@@ -42,6 +44,7 @@ export function App() {
       } catch (error) {
         console.error(error);
         if (error.message !== "canceled") {
+          // Don't set an error state if the abort controller canceled the fetch.
           setStatus("error");
         }
       }

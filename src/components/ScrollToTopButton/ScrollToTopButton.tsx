@@ -11,6 +11,7 @@ export default function ScrollToTopButton() {
             setIsVisible(scrollPosition > 300);
         };
 
+        // Makes the button visible only when the page had been scrolled from init
         window.addEventListener('scroll', handleScroll);
 
         return () => {

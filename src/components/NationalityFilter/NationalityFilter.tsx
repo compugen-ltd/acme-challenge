@@ -21,6 +21,7 @@ export default function NationalityFilter() {
     const { nationalityFilter, setNationalityFilter, setPage } = useListUsersContext();
 
     const handleChange = (event: SelectChangeEvent<typeof nationalityFilter>) => {
+        // Resetting pagination because api returns random unpaginated users
         setPage(p => 0);
         setNationalityFilter(event.target.value as Nationality[]);
     };

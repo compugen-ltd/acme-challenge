@@ -30,6 +30,7 @@ export default function UserList() {
 
     return (
         <Paper>
+            {/* If the fetch completed and no users are in the filtered array, display this. */}
             {!filteredUsers.length && status === "ready" && <Typography sx={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '50%' }}>No users found</Typography>}
             <>
                 <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
@@ -48,6 +49,7 @@ export default function UserList() {
                             ))}
                         </TableBody>
                     </Table>
+                    {/* This components reacts to the loading state. */}
                     <LoadingButton
                         onClick={loadMore}
                         loading={status === "loading"}

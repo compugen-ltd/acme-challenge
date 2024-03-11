@@ -9,11 +9,13 @@ export default function UserModal() {
     const user = usersData.find(user => user.login.uuid === id);
     const history = useHistory();
 
+    // If a random id had been perhaps inserted in the url
     if (!user) {
         return null;
     }
 
     const handleClose = () => {
+        // Goes back the stack and the router removes the modal.
         history.push('/');
     };
 

@@ -12,6 +12,7 @@ export default function User({ user }: { user: UsersDataProps }) {
     const { setUsers } = useListUsersContext();
 
     function handleDelete() {
+        // Removes selected user from state
         setUsers(prevUsers => prevUsers.filter(u => u.login.uuid !== user.login.uuid));
     }
 

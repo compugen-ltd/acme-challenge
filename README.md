@@ -1,4 +1,5 @@
 # Notes
 
-- In a production grade application, I would've used useReducer as it scales much better but since this application isn't going to scale and for readability purposes I decided to stick to using useState.
-- The start script has been modified because of deprecated dependencies.
+- The API doesn't support pagination with filtering applied, so traditional pagination wasn't an option. Instead, I used a "load more" approach.
+- I adjusted the start script due to deprecated dependencies.
+- While useReducer is typically better for scalability in production apps, I chose useState for readability here.
