@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, ListItemText, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Tooltip } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
 import { useListUsersContext } from '../../context/listUsersContext';
@@ -26,24 +26,32 @@ export default function NationalityFilter() {
         setNationalityFilter(event.target.value as Nationality[]);
     };
 
+    const renderValue = (selected: Nationality[]) => {
+        // Check if no nationalities are selected
+        if (selected.length === 0) {
+            return 'All';
+        }
+        // Otherwise, return comma-separated list
+        return selected.join(', ');
+    };
+
     return (
         <FormControl sx={{ m: 1, minWidth: 125 }}>
-            <InputLabel id="nationality-label" >
-                Nationality
-            </InputLabel>
+            <InputLabel id="nationality-label">Nationality</InputLabel>
             <Select
-                labelId='nationality-label'
-                id='multiple-native'
+                labelId="nationality-label"
+                id="multiple-select"
                 multiple
                 value={nationalityFilter}
                 onChange={handleChange}
                 inputProps={{
                     name: 'nationality',
                 }}
-                renderValue={(selected) => selected.join(', ')}
+                input={<OutlinedInput label="Nationality" />}
+                renderValue={renderValue}
                 MenuProps={MenuProps}
             >
-                {nationalities.map(n => (
+                {nationalities.map((n) => (
                     <MenuItem key={n.toString()} value={n}>
                         <Checkbox checked={nationalityFilter.includes(n)} />
                         <ListItemText primary={n} />

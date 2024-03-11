@@ -8,21 +8,24 @@ import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-import { useListUsersContext } from '../../context/listUsersContext';
 import User from '../User/User';
+import { useListUsersContext } from '../../context/listUsersContext';
+import { neutralizeString } from '../../services/utils';
 
 export default function UserList() {
     const { usersData, setPage, status, searchQuery } = useListUsersContext();
 
-    // Filter users names and email based on searchQuery
+    // Filter users' names based on searchQuery, handling spaces
     const filteredUsers = usersData.filter((user) => {
-        const searchText = searchQuery.toLowerCase();
-        return (
-            user.name.first.toLowerCase().includes(searchText) ||
-            user.name.last.toLowerCase().includes(searchText) ||
-            user.email.toLowerCase().includes(searchText)
-        )
+        const searchTextTerms = searchQuery.trim().toLowerCase().split(/\s+/); // Split searchText by spaces
+        return searchTextTerms.every((term) => {
+            return (
+                neutralizeString(user.name.first).includes(term) ||
+                neutralizeString(user.name.last).includes(term)
+            );
+        });
     });
+
 
     function loadMore() {
         setPage((p: number) => p + 1);

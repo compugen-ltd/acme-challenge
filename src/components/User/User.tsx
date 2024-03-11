@@ -1,20 +1,37 @@
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import { AccountCircle, DeleteOutlineOutlined } from '@material-ui/icons';
-import { Avatar, Grid } from '@mui/material';
+import { AccountCircle, DeleteForeverOutlined, DeleteOutlineOutlined } from '@material-ui/icons';
+import { Avatar, Grid, Tooltip } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 import { useListUsersContext } from '../../context/listUsersContext';
 import formattedDate from '../../services/formattedDate';
 import { UsersDataProps } from '../../services/types';
+import { useState } from 'react';
 
 export default function User({ user }: { user: UsersDataProps }) {
+    const [deletePressed, setDeletePressed] = useState(false);
     const { setUsers } = useListUsersContext();
+
+    const handleDeletePressed = () => {
+        // Delete confirmation logic
+        setDeletePressed(true)
+
+        setTimeout(() => {
+            setDeletePressed(false)
+        }, 3000)
+
+        if (deletePressed) {
+            handleDelete()
+        }
+
+    };
 
     function handleDelete() {
         // Removes selected user from state
         setUsers(prevUsers => prevUsers.filter(u => u.login.uuid !== user.login.uuid));
     }
+
 
     return (
         <TableRow>
@@ -32,15 +49,19 @@ export default function User({ user }: { user: UsersDataProps }) {
             <TableCell align="center">
                 <Grid container spacing={1} alignItems="center" justifyContent="center">
                     <Grid item>
-                        <NavLink to={user.login.uuid}>
-                            <AccountCircle />
-                        </NavLink>
+                        <Tooltip title='View User Details'>
+                            <NavLink to={user.login.uuid} style={{ color: '#007bff' }}>
+                                <AccountCircle />
+                            </NavLink>
+                        </Tooltip>
                     </Grid>
                     <Grid item>
                         {/* Wrapped in a button to show a click curser */}
-                        <button onClick={handleDelete} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                            <DeleteOutlineOutlined />
-                        </button>
+                        <Tooltip title={!deletePressed ? 'Delete User' : 'Confirm Deletion'}>
+                            <button onClick={handleDeletePressed} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                                {deletePressed ? <DeleteForeverOutlined /> : <DeleteOutlineOutlined />}
+                            </button>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </TableCell >
