@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, Tooltip } from '@mui/material';
+import { FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 
 import { useListUsersContext } from '../../context/listUsersContext';
